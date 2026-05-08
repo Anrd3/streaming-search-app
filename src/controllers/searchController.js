@@ -1,16 +1,10 @@
-const inquirer = require('inquirer');
+const { input, select, confirm } = require('@inquirer/prompts');
 const { searchContent, getContentDetail } = require('../models/searchModel');
 
 const mainMenu = async () => {
-  console.log('\nðŸŽ¬ Bienvenido a Streaming Search App\n');
+  console.log('\nï¿½ï¿½ Bienvenido a Streaming Search App\n');
 
-  const { query } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'query',
-      message: 'ðŸ” Â¿QuÃ© pelÃ­cula o serie deseas buscar?',
-    },
-  ]);
+  const query = await input({ message: 'í´ Â¿QuÃ© pelÃ­cula o serie deseas buscar?' });
 
   const results = await searchContent(query);
 
@@ -24,33 +18,23 @@ const mainMenu = async () => {
     value: { id: item.id, type: item.media_type },
   }));
 
-  const { selected } = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'selected',
-      message: 'ðŸ“‹ Selecciona un resultado:',
-      choices,
-    },
-  ]);
+  const selected = await select({
+    message: 'í³‹ Selecciona un resultado:',
+    choices,
+  });
 
   const detail = await getContentDetail(selected.id, selected.type);
 
-  console.log('\nðŸ“Œ Detalle:');
+  console.log('\ní³Œ Detalle:');
   console.log(`  TÃ­tulo     : ${detail.title || detail.name}`);
   console.log(`  DescripciÃ³n: ${detail.overview}`);
   console.log(`  PuntuaciÃ³n : ${detail.vote_average}`);
   console.log(`  Estreno    : ${detail.release_date || detail.first_air_date}`);
 
-  const { again } = await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'again',
-      message: '\nÂ¿Deseas hacer otra bÃºsqueda?',
-    },
-  ]);
+  const again = await confirm({ message: 'Â¿Deseas hacer otra bÃºsqueda?' });
 
   if (again) return mainMenu();
-  console.log('\nðŸ‘‹ Â¡Hasta luego!\n');
+  console.log('\ní±‹ Â¡Hasta luego!\n');
 };
 
 module.exports = { mainMenu };
