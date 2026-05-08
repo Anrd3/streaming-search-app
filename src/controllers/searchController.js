@@ -1,16 +1,10 @@
-const inquirer = require('inquirer');
+const { input, select, confirm } = require('@inquirer/prompts');
 const { searchContent, getContentDetail } = require('../models/searchModel');
 
 const mainMenu = async () => {
   console.log('\n🎬 Bienvenido a Streaming Search App\n');
 
-  const { query } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'query',
-      message: '🔍 ¿Qué película o serie deseas buscar?',
-    },
-  ]);
+  const query = await input({ message: '🔍 ¿Qué película o serie deseas buscar?' });
 
   const results = await searchContent(query);
 
@@ -24,14 +18,10 @@ const mainMenu = async () => {
     value: { id: item.id, type: item.media_type },
   }));
 
-  const { selected } = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'selected',
-      message: '📋 Selecciona un resultado:',
-      choices,
-    },
-  ]);
+  const selected = await select({
+    message: '📋 Selecciona un resultado:',
+    choices,
+  });
 
   const detail = await getContentDetail(selected.id, selected.type);
 
@@ -41,13 +31,7 @@ const mainMenu = async () => {
   console.log(`  Puntuación : ${detail.vote_average}`);
   console.log(`  Estreno    : ${detail.release_date || detail.first_air_date}`);
 
-  const { again } = await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'again',
-      message: '\n¿Deseas hacer otra búsqueda?',
-    },
-  ]);
+  const again = await confirm({ message: '¿Deseas hacer otra búsqueda?' });
 
   if (again) return mainMenu();
   console.log('\n👋 ¡Hasta luego!\n');
