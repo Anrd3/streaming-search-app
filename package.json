@@ -1,0 +1,29 @@
+{
+  "name": "streaming-search-app",
+  "version": "1.0.0",
+  "description": "Aplicación Backend MCV para buscar películas y series usando TMDB API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anrd3/streaming-search-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Anrd3/streaming-search-app/issues"
+  },
+  "homepage": "https://github.com/Anrd3/streaming-search-app#readme",
+  "dependencies": {
+    "axios": "^1.16.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
