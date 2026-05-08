@@ -4,7 +4,12 @@
   "description": "Aplicación Backend MCV para buscar películas y series usando TMDB API",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+>>>>>>> f2139104b3c154428a7fc2ba611d74389569fe6b
   },
   "repository": {
     "type": "git",
